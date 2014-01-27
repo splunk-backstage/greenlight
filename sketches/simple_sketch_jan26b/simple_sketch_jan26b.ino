@@ -8,8 +8,8 @@
 #define BLUE     11 // pin for blue - never explicitly referenced
 #define SIZE    255
 #define DELAY    20
-#define HUE_MAX  8.0 // 6.0
-#define HUE_DELTA 0.05 // 0.01
+#define HUE_MAX  6.0
+#define HUE_DELTA 0.01
 
 //long deltas[3] = { 5, 6, 7 };
 long rgb[3];
@@ -33,14 +33,14 @@ long k, temp_value;
 
 void setup () {
   randomSeed(analogRead(4));
-  for (k=1; k<3; k++) {
+  for (k=0; k<3; k++) {
     pinMode(RED + k, OUTPUT);
     rgb[k]=0;
     analogWrite(RED + k, rgb[k] * bright[k]/256);
   }
   // disable RED
-  pinMode(RED, OUTPUT);
-  analogWrite(RED, 0);
+  //pinMode(RED, OUTPUT);
+  //analogWrite(RED, 0);
 }
 
 void loop() {
@@ -52,7 +52,7 @@ void loop() {
   rgb[0] = (rgbval & 0x00FF0000) >> 16; // there must be better ways
   rgb[1] = (rgbval & 0x0000FF00) >> 8;
   rgb[2] = rgbval & 0x000000FF;
-  for (k=1; k<3; k++) { // for all three colours
+  for (k=0; k<3; k++) { // for all three colours
     analogWrite(RED + k, rgb[k] * bright[k]/256);
   }
   
