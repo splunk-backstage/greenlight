@@ -1,11 +1,7 @@
 // color swirl! connect an RGB LED to the PWM pins as indicated
 // in the #defines
 // public domain, enjoy!
- 
-//#define REDPIN 5
-//#define GREENPIN 6
-//#define BLUEPIN 3
- 
+  
 #define REDPIN 9
 #define GREENPIN 10
 #define BLUEPIN 11 
@@ -32,36 +28,59 @@ void setup() {
  
 void loop() {
   int r, g, b;
+  
+  do_turn_off();
  
-  analogWrite(REDPIN, 0);
-  analogWrite(GREENPIN, 0);
-  analogWrite(BLUEPIN, 0);
- 
-  // red
-  for (int i=0; i<256; i++) {
-    analogWrite(REDPIN, i);
+  /* 06:15 off, fade up to red/orange/yellow */ 
+  do_fade(0, 256, 1, REDPIN);   // red
+  do_fade(0, 20, 1, GREENPIN);  // orange
+  do_fade(20, 50, 1, GREENPIN); // yellow
+   
+  /* 06:30 fadeup to white, turn off (just after fluorescents turn on) */
+  do_white();
+  do_turn_off();
+  
+  /* 18:25 fade up to orange/yellow, dim to orangered or just red */
+  analogWrite(REDPIN, 255);
+  do_fade(0, 20, 1, GREENPIN);  // orange
+  do_fade(20, 50, 1, GREENPIN); // yellow 
+  do_turn_off();
+  
+  /* 19:00 fade up to green 
+  (lights garden at night, does not interfere with plant photosynthesis) 
+  */
+  do_fade(0, 255, 1, GREENPIN);
+}
+
+////////////////////////////////////////////////////////////
+// brings up one PIN to a particular limit (color)
+////////////////////////////////////////////////////////////
+void do_fade(int start, int limit, int incr, int pin) {
+  for (int i=start; i<limit; i+=incr) {
+    analogWrite(pin, i);
     delay(FADESPEED);
   }
   delay(DELAY);
-  
-  // orange
-  for (int i=0; i<20; i++) {
-    analogWrite(GREENPIN, i);
-    delay(FADESPEED);
-  }
-  delay(DELAY);
-  
-  // yellow
-  for (int i=20; i<50; i++) {
-    analogWrite(GREENPIN, i);
-    delay(FADESPEED);
-  }
-  delay(DELAY);
-  
-  // white
+}
+
+////////////////////////////////////////////////////
+// blinding white light
+////////////////////////////////////////////////////
+void do_white() {
   analogWrite(REDPIN, 200);
   analogWrite(GREENPIN, 100);
   analogWrite(BLUEPIN, 50);
-  delay(3000);
-    
+  delay(6000);
 }
+
+////////////////////////////
+// turn off the lights
+////////////////////////////
+void do_turn_off() {
+  analogWrite(REDPIN, 0);
+  analogWrite(GREENPIN, 0);
+  analogWrite(BLUEPIN, 0);
+}
+
+
+

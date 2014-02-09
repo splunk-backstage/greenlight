@@ -46,17 +46,7 @@ void loop() {
     delay(FADESPEED);
   }
   delay(3000);
-  
-//  // yellow
-//  for (int i=28;r<255;i++) {
-//    analogWrite(GREENPIN, i);
-//  }
-//   
-//  delay(FADESPEED);
- 
- 
- 
- 
+   
  
   // fade from blue to violet
 //  for (r = 0; r < 256; r++) { 
