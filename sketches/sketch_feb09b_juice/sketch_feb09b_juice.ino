@@ -30,7 +30,6 @@ void setup() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
  
 void loop() {
-  int r, g, b;
   
   do_turn_off();
  
@@ -40,20 +39,22 @@ void loop() {
   do_fade(20, 50, 1, GREENPIN); // yellow
    
   /* 06:30 fadeup to white, turn off (just after fluorescents turn on) */
-  do_white();
+  do_fade(20, 100, 1, GREENPIN);  // orange --> white
+  do_fade(0, 50, 1, BLUEPIN);     // yellow --> white
+  delay(6000);
   do_turn_off();
   
   /* 18:25 fade up to yellow/orange/red */
   analogWrite(REDPIN, 200);
-  do_fade(20, 50, 1, GREENPIN); // yellow
-  do_reverse_fade(50, 20, 1, GREENPIN);
-  //do_fade(0, 20, 1, GREENPIN);  // orange
+  do_fade(20, 50, 1, GREENPIN);         // yellow
+  do_reverse_fade(50, 20, 1, GREENPIN); // orange
   do_turn_off();
   
   /* 19:00 fade up to green 
   (lights garden at night, does not interfere with plant photosynthesis) 
   */
   do_fade(0, 50, 1, GREENPIN);
+  delay(6000);
 }
 
 ////////////////////////////////////////////////////////////
@@ -79,12 +80,12 @@ void do_reverse_fade(int start, int limit, int incr, int pin) {
 ////////////////////////////////////////////////////
 // blinding white light
 ////////////////////////////////////////////////////
-void do_white() {
-  analogWrite(REDPIN, 200);
-  analogWrite(GREENPIN, 100);
-  analogWrite(BLUEPIN, 50);
-  delay(6000);
-}
+//void do_white() {
+//  analogWrite(REDPIN, 200);
+//  analogWrite(GREENPIN, 100);
+//  analogWrite(BLUEPIN, 50);
+//  delay(6000);
+//}
 
 ////////////////////////////
 // turn off the lights
