@@ -35,7 +35,7 @@ void loop() {
  
   /* 06:15 off, fade up to red/orange/yellow */ 
   do_fade(0, 200, 1, REDPIN);   // red
-  do_fade(0, 20, 1, GREENPIN);  // orange
+  do_fade(0, 21, 1, GREENPIN);  // orange
   do_fade(20, 50, 1, GREENPIN); // yellow
    
   /* 06:30 fadeup to white, turn off (just after fluorescents turn on) */
@@ -46,8 +46,9 @@ void loop() {
   
   /* 18:25 fade up to yellow/orange/red */
   analogWrite(REDPIN, 200);
-  do_fade(20, 50, 1, GREENPIN);         // yellow
-  do_reverse_fade(50, 20, 1, GREENPIN); // orange
+  analogWrite(BLUEPIN, 0);
+  do_fade(20, 51, 1, GREENPIN);         // yellow
+  do_reverse_fade(50, 21, 1, GREENPIN); // orange
   do_turn_off();
   
   /* 19:00 fade up to green 
